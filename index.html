@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#10192a"><title>BW2 SHINY JOURNEY</title><link rel="stylesheet" href="styles.css"></head>
+<body class="admin"><header><div><span class="eyebrow">BLACK 2 × WHITE 2</span><h1>BW2 SHINY JOURNEY</h1></div><div id="saveState" class="save ok">● 保存済み</div></header>
+<main>
+  <section class="hero"><div><span class="label">LIVING SHINY COLLECTION</span><div class="big" id="overall">3 / 22</div><div class="meter"><i id="overallBar"></i></div></div><div class="hero-stats"><b id="overallPct">13.6%</b><span>19番道路＋サンギ牧場 MVP</span></div></section>
+  <nav class="tabs"><button data-tab="control" class="active">配信操作</button><button data-tab="areas">場所別進捗</button><button data-tab="records">捕獲履歴</button><button data-tab="data">バックアップ</button></nav>
+  <section id="control" class="panel tab active">
+    <div class="toolbar"><label>現在地<select id="areaSelect"></select></label><label>配信モード<select id="modeSelect"><option value="dual">3DS 2台</option><option value="single">3DS 1台</option></select></label><a class="button ghost" href="obs.html" target="_blank">OBS画面を開く</a></div>
+    <div id="devices" class="devices"></div>
+    <div class="session"><div><span class="label">SESSION</span><strong id="sessionTime">00:00:00</strong></div><button id="sessionBtn">セッション開始</button><span id="sessionTotals">B2 0回 / W2 0回</span></div>
+  </section>
+  <section id="areas" class="panel tab"><div id="areaCards"></div></section>
+  <section id="records" class="panel tab"><div class="section-title"><h2>捕獲履歴</h2><span id="recordCount"></span></div><div id="recordList" class="records"></div></section>
+  <section id="data" class="panel tab"><h2>データ保護</h2><p>このアプリ専用のIndexedDBに保存します。SHINY HOME COLLECTIONの保存領域には触れません。</p><div class="data-actions"><button id="exportBtn">JSONを書き出す</button><label class="button ghost">JSONを復元<input id="importInput" type="file" accept="application/json" hidden></label></div><div class="storage-note"><b>専用DB</b> bw2ShinyJourneyDB_v1<br><b>通信</b> Supabase未接続・端末内のみ</div></section>
+</main>
+<dialog id="captureDialog"><form method="dialog"><h2>色違い捕獲！</h2><div id="captureWho"></div><label>進化用途<select id="capturePurpose"></select></label><label>メモ<textarea id="captureMemo" rows="3"></textarea></label><div class="dialog-actions"><button value="cancel" class="ghost">戻る</button><button id="confirmCapture" value="default">登録する</button></div></form></dialog>
+<div id="toast"></div><script src="app.js"></script></body></html>

@@ -1,0 +1,9 @@
+<!doctype html><meta charset="utf-8"><title>BW2 data builder</title><pre id="s">loading</pre><script>
+(async()=>{try{
+const q=`query BW2Encounters { encounter(where:{version_id:{_in:[21,22]}}) { id version_id min_level max_level pokemon_id location_area_id encounterslot { rarity encountermethod { name } } locationarea { name location { name } } pokemon { name } encounterconditionvaluemaps { encounterconditionvalue { name } } } }`;
+const r=await fetch('https://graphql.pokeapi.co/v1beta2',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({query:q})});
+const j=await r.json();if(j.errors)throw Error(j.errors.map(x=>x.message).join('\n'));
+const rows=(j.data.encounter||[]).map(x=>({id:x.id,version:x.version_id===21?'black-2':'white-2',areaId:x.location_area_id,areaName:x.locationarea?.name||String(x.location_area_id),locationName:x.locationarea?.location?.name||'',pokemonId:x.pokemon_id,pokemonName:x.pokemon?.name||String(x.pokemon_id),min:x.min_level,max:x.max_level,chance:x.encounterslot?.rarity||0,method:x.encounterslot?.encountermethod?.name||'walk',conditions:(x.encounterconditionvaluemaps||[]).map(y=>y.encounterconditionvalue?.name).filter(Boolean)}));
+localStorage.setItem('bw2BuildRows',JSON.stringify(rows));document.querySelector('#s').textContent='done '+rows.length;
+}catch(e){document.querySelector('#s').textContent='error '+e.stack}})();
+</script>
